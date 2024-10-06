@@ -28,6 +28,9 @@ const BrandDealCard = ({ deal }) => {
           {deal.description}
         </Typography>
         <Typography variant="body2" className="mb-2">
+          Reason: {deal.reason}
+        </Typography>
+        <Typography variant="body2" className="mb-2">
           Potential earnings: {deal.earnings}
         </Typography>
         {deal.contactInfo && (

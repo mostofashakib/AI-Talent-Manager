@@ -22,8 +22,11 @@ const BrandDealCard = ({ deal }) => (
         {deal.description}
       </Typography>
       <Typography variant="body2" className="mb-2">
-        Potential earnings: {deal.earnings}
+        Reason: {deal.reason}
       </Typography>
+      {/* <Typography variant="body2" className="mb-2">
+        Potential earnings: {deal.earnings}
+      </Typography> */}
       {deal.contactInfo && (
         <div className="flex items-center mb-2">
           <Typography variant="body2" className="mr-2">

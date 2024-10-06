@@ -16,6 +16,7 @@ def analyze_channel():
 
     try:
         result = analyze_youtube_channel(channel_url)
+        print(result)
         return jsonify(result)
     except Exception as e:
         return jsonify({"error": str(e)}), 500

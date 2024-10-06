@@ -1,5 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
+import os
+from services.llm_service import generate_response
 
 recommendations = [            {
                 "logo": "https://via.placeholder.com/150",
@@ -10,54 +12,49 @@ recommendations = [            {
                 "affiliateLink": "https://branda.com",
             },]
 
+
+def getChannelDetails(channel_url):
+
+    # get RAPID_API_KEY from
+    # https://rapidapi.com/dataocean/api/the-better-youtube-channel-details
+    RAPID_API_KEY = os.getenv('RAPID_API_KEY')
+    url = 'https://the-better-youtube-channel-details.p.rapidapi.com/GetChannelDetails'
+    querystring = {'UrlOrUsername': channel_url}
+
+    headers = {
+        'x-rapidapi-host': 'the-better-youtube-channel-details.p.rapidapi.com',
+        'x-rapidapi-key': RAPID_API_KEY,
+    }
+
+    response = requests.get(url, headers=headers, params=querystring)
+
+    if response.status_code == 200:
+        channel_details = response.json()
+        return channel_details
+    else:
+        print(f"Error getting channel details: {response.status_code} - {response.text}")
+        raise Exception(f"Error getting channel details: {response.status_code} - {response.text}")
+    
 def analyze_youtube_channel(channel_url):
     global recommendations  # Declare recommendations as global to modify it
 
     try:
-        # response = requests.get(channel_url)
-        # soup = BeautifulSoup(response.text, 'html.parser')
+        channel_details = getChannelDetails(channel_url)
+        channel_description = channel_details['data']['description']
+        channel_subscriber_count = channel_details['data']['channel_subscriber_count']
 
-        # channel_name = soup.find('meta', property='og:title')['content']
-        # subscriber_count = soup.find('yt-formatted-string', id='subscriber-count').text.strip()
-
-        # return {
-        #     "channelName": channel_name,
-        #     "subscriberCount": subscriber_count,
-        #     # Add more analyzed data here
-        # }
-
-        recommendations = [
-            {
-                "logo": "https://via.placeholder.com/150",
-                "name": "Brand A",
-                "description": "Description for Brand A.",
-                "earnings": "$1000",
-                "contactInfo": "contact@branda.com",
-                "affiliateLink": "https://branda.com",
-            },
-            {
-                "logo": "https://via.placeholder.com/150",
-                "name": "Brand B",
-                "description": "Description for Brand B.",
-                "earnings": "$2000",
-                "contactInfo": "contact@brandb.com",
-                "affiliateLink": "https://brandb.com",
-            },
-            {
-                "logo": "https://via.placeholder.com/150",
-                "name": "Brand C",
-                "description": "Description for Brand C.",
-                "earnings": "$3000",
-                "contactInfo": "contact@brandc.com",
-                "affiliateLink": "https://brandc.com",
-            },
-        ]
+        recommendations = generate_response(channel_description, channel_subscriber_count)
         
         return {
             "recommendations": recommendations,
         }
     except Exception as e:
+        print(f"Error analyzing channel: {str(e)}")
         raise Exception(f"Error analyzing channel: {str(e)}")
     
 def getChannelRecommendations():
     return recommendations
+
+
+if __name__ == "__main__":
+    print(analyze_youtube_channel("https://www.youtube.com/@TED"))

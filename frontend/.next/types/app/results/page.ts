@@ -1,4 +1,4 @@
-// File: /Users/adibshakib/Coding/AI-Talent-Manager/frontend/app/results/page.tsx
+// File: /home/boyuan/aitm/AI-Talent-Manager/frontend/app/results/page.tsx
 import * as entry from '../../../../app/results/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
