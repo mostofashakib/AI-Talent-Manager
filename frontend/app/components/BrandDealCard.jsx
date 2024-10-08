@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardContent, Typography, Button } from "@mui/material";
 import { Copy, ExternalLink } from "lucide-react";
 
@@ -21,17 +21,17 @@ const BrandDealCard = ({ deal }) => {
 
       <CardContent>
         <div className="flex items-center mb-2">
-          <img src={deal.logo} alt={deal.name} className="w-10 h-10 mr-2" />
+          <img src={deal.logo_url} alt={deal.name} className="w-10 h-10 mr-2" />
           <Typography variant="h6">{deal.name}</Typography>
         </div>
         <Typography variant="body2" color="textSecondary" className="mb-2">
           {deal.description}
         </Typography>
         <Typography variant="body2" className="mb-2">
-            Reason: {deal.reason}
+          Reason: {deal.reason}
         </Typography>
         <Typography variant="body2" className="mb-2">
-          Potential earnings: {deal.earnings}
+          Category: {deal.category}
         </Typography>
         {deal.contactInfo && (
           <div className="flex items-center mb-2">
@@ -52,7 +52,7 @@ const BrandDealCard = ({ deal }) => {
           variant="outlined"
           color="primary"
           fullWidth
-          href={deal.affiliateLink}
+          href={deal.affiliate_link}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-2"

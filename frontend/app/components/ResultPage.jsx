@@ -1,61 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {
-  TextField,
-  Button,
-  Card,
-  CardContent,
-  Typography,
-  Snackbar,
-} from "@mui/material";
-import { Copy, ExternalLink, Mail } from "lucide-react";
+import { TextField, Button, Snackbar } from "@mui/material";
+import { Mail } from "lucide-react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-
-const BrandDealCard = ({ deal }) => (
-  <Card className="mb-4 hover:shadow-lg transition-shadow duration-300">
-    <CardContent>
-      <div className="flex items-center mb-2">
-        <img src={deal.logo} alt={deal.name} className="w-10 h-10 mr-2" />
-        <Typography variant="h6">{deal.name}</Typography>
-      </div>
-      <Typography variant="body2" color="textSecondary" className="mb-2">
-        {deal.description}
-      </Typography>
-      <Typography variant="body2" className="mb-2">
-        Reason: {deal.reason}
-      </Typography>
-      {/* <Typography variant="body2" className="mb-2">
-        Potential earnings: {deal.earnings}
-      </Typography> */}
-      {deal.contactInfo && (
-        <div className="flex items-center mb-2">
-          <Typography variant="body2" className="mr-2">
-            Contact: {deal.contactInfo}
-          </Typography>
-          <Button
-            startIcon={<Copy size={16} />}
-            size="small"
-            onClick={() => navigator.clipboard.writeText(deal.contactInfo)}
-          >
-            Copy
-          </Button>
-        </div>
-      )}
-      <Button
-        startIcon={<ExternalLink size={16} />}
-        variant="outlined"
-        color="primary"
-        fullWidth
-        href={deal.affiliateLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-2"
-      >
-        Visit Affiliate Program
-      </Button>
-    </CardContent>
-  </Card>
-);
+import BrandDealCard from "./BrandDealCard";
 
 const ResultsPage = () => {
   const [email, setEmail] = useState("");
@@ -88,7 +36,7 @@ const ResultsPage = () => {
         }
       );
       setIsSuccess(true);
-      setSnackbarMessage(response.data.message);
+      setSnackbarMessage("Email Successfully Sent!");
       setIsSnackbarOpen(true);
       setEmail("");
     } catch (error) {
