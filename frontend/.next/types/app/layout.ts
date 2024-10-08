@@ -1,4 +1,4 @@
-// File: /home/boyuan/aitm/AI-Talent-Manager/frontend/app/layout.tsx
+// File: /Users/adibshakib/Coding/AI-Talent-Manager/frontend/app/layout.tsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

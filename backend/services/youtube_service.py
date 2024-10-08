@@ -4,17 +4,15 @@ import os
 from services.llm_service import generate_response
 
 recommendations = [            {
-                "logo": "https://via.placeholder.com/150",
                 "name": "Brand A",
                 "description": "Description for Brand A.",
-                "earnings": "$1000",
-                "contactInfo": "contact@branda.com",
-                "affiliateLink": "https://branda.com",
-            },]
+                "category": "Test",
+                "website_url": "contact@branda.com",
+                "affiliate_link": "https://branda.com",
+},]
 
 
 def getChannelDetails(channel_url):
-
     # get RAPID_API_KEY from
     # https://rapidapi.com/dataocean/api/the-better-youtube-channel-details
     RAPID_API_KEY = os.getenv('RAPID_API_KEY')
