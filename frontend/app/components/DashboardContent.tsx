@@ -24,7 +24,7 @@ const DashboardContent = () => {
   const fetchAutomations = async () => {
     try {
       const response = await axios.get(
-        "http://127.0.0.1:5000/api/fetchAutomations"
+        `${process.env.NEXT_PUBLIC_PRODUCTION_BACKEND_URL_LINK}/api/fetchAutomations`
       );
       setAutomations(
         response.data.map((videoUrl: Automation) => ({
@@ -40,10 +40,13 @@ const DashboardContent = () => {
   const startAutomation = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.post("http://127.0.0.1:5000/api/automate", {
-        videoUrl,
-        affiliateUrl,
-      });
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_PRODUCTION_BACKEND_URL_LINK}/api/automate`,
+        {
+          videoUrl,
+          affiliateUrl,
+        }
+      );
       fetchAutomations();
     } catch (error) {
       console.error("Error analyzing video:", error);
@@ -55,9 +58,10 @@ const DashboardContent = () => {
   const stopAutomation = async (videoUrl: string) => {
     setIsLoading(true);
     try {
-      const response = await axios.post("http://127.0.0.1:5000/api/stop", {
-        videoUrl,
-      });
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_PRODUCTION_BACKEND_URL_LINK}/api/stop`,
+        { videoUrl }
+      );
       if (response.status === 200) {
         setAutomations((prev) =>
           prev.map((automation) =>

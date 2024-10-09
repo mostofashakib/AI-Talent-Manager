@@ -29,7 +29,7 @@ const ResultsPage = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://127.0.0.1:5000/api/send-email",
+        `${process.env.NEXT_PUBLIC_PRODUCTION_BACKEND_URL_LINK}/api/send-email`,
         {
           email,
           recommendations,

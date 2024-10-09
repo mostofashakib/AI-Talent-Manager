@@ -1,11 +1,18 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import os
 from services.youtube_service import analyze_youtube_channel, getChannelRecommendations
 from services.email_service import send_email
 from services.youtube_sales_service import start_automation_service, stop_automation_service, get_active_automations
 
 app = Flask(__name__)
-CORS(app)
+
+if os.environ.get('FLASK_ENV') == 'production':
+    # In production, specify allowed origins
+    CORS(app, resources={r"/api/*": {"origins": ["https://ai-talent-manager.vercel.app/", "https://www.mostofatech.com/"]}})
+else:
+    # In development, allow all origins
+    CORS(app)
 
 @app.route('/api/analyze', methods=['POST'])
 def analyze_channel():
@@ -78,4 +85,7 @@ def send_email_route():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    port = int(os.environ.get('PORT', 8080))
+    debug = os.environ.get('FLASK_ENV') != 'production'
+    
+    app.run(host='0.0.0.0', port=port, debug=debug)
