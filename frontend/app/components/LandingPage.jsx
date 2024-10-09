@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { TextField, Button, CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { Search, ArrowRight, Zap, BarChart, Users } from "lucide-react";
+import { Search, ArrowRight, BarChart, Users } from "lucide-react";
 
 const LandingPage = () => {
   const [channelUrl, setChannelUrl] = useState("");
@@ -17,7 +17,6 @@ const LandingPage = () => {
   const handleAnalyze = async () => {
     setIsLoading(true);
     try {
-      console.log(`${process.env.NEXT_PUBLIC_PRODUCTION_BACKEND_URL_LINK}`);
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_PRODUCTION_BACKEND_URL_LINK}/api/analyze`,
         {

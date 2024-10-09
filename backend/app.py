@@ -6,13 +6,16 @@ from services.email_service import send_email
 from services.youtube_sales_service import start_automation_service, stop_automation_service, get_active_automations
 
 app = Flask(__name__)
+CORS(app)
 
-if os.environ.get('FLASK_ENV') == 'production':
-    # In production, specify allowed origins
-    CORS(app, resources={r"/api/*": {"origins": ["https://ai-talent-manager.vercel.app/", "https://www.mostofatech.com/"]}})
-else:
-    # In development, allow all origins
-    CORS(app)
+@app.after_request
+def after_request(response):
+    origin = request.headers.get('Origin')
+    if origin in ["https://www.mostofatech.com", "https://ai-talent-manager.vercel.app"]:
+        response.headers.add('Access-Control-Allow-Origin', origin)
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS')
+    return response
 
 @app.route('/api/analyze', methods=['POST'])
 def analyze_channel():
