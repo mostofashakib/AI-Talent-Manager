@@ -17,9 +17,13 @@ const LandingPage = () => {
   const handleAnalyze = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.post("http://127.0.0.1:5000/api/analyze", {
-        channelUrl,
-      });
+      console.log(`${process.env.NEXT_PUBLIC_PRODUCTION_BACKEND_URL_LINK}`);
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_PRODUCTION_BACKEND_URL_LINK}/api/analyze`,
+        {
+          channelUrl,
+        }
+      );
       const { recommendations } = response.data;
 
       // Store recommendations in localStorage if available
@@ -46,10 +50,13 @@ const LandingPage = () => {
   const handleVideoAnalyze = async () => {
     setIsLoading(true);
     try {
-      await axios.post("http://127.0.0.1:5000/api/automate", {
-        videoUrl,
-        affiliateUrl,
-      });
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_PRODUCTION_BACKEND_URL_LINK}/api/automate`,
+        {
+          videoUrl,
+          affiliateUrl,
+        }
+      );
       router.push(`/dashboard`);
     } catch (error) {
       console.error("Error analyzing video:", error);
