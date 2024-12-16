@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ViralVisionAI
 
-## Getting Started
+**ViralVisionAI** is an AI-driven platform designed to empower content creators by automating brand partnerships, providing performance insights, and enhancing engagement through automated responses.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Brand Discovery**: Identify brand partnerships tailored to your content and audience.
+- **Performance Tracking**: Monitor the effectiveness of partnerships and optimize strategies.
+- **Automated Engagement**: Automate responses to comments and messages with personalized affiliate links and product information.
+
+## How It Works
+
+1. **User Input**: The user provides a YouTube channel or video URL and (optionally) an affiliate link.
+2. **Analysis**:
+   - Channels are analyzed to recommend potential brand partnerships.
+   - Video links trigger automation processes for responses.
+3. **Automation**:
+   - Using AI, the platform identifies suitable opportunities and automates engagement workflows.
+
+## Development Setup
+
+### Run Backend (Flask)
+
+1.  bashCopy codepython3 -m venv venvsource venv/bin/activate
+2.  bashCopy codepip install -r requirements.txt
+3.  makefileCopy codeFLASK_ENV=developmentPORT=8080NEXT_PUBLIC_PRODUCTION_BACKEND_URL_LINK=
+4.  bashCopy codeflask run
+
+### Environment Configuration
+
+Add the following API keys to your .env file:
+
+```
+YOUTUBE_API_KEY=YOUR_YOUTUBE_API_KEY
+NEXT_PUBLIC_FORM_CONTACT_API=YOUR_FORM_API_KEY
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Analyze a YouTube Channel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1.  Navigate to the homepage.
+2.  Enter the YouTube channel URL in the input field.
+3.  Click **Analyze** to view recommended brand deals.
 
-## Learn More
+### Automate Engagement for a Video
 
-To learn more about Next.js, take a look at the following resources:
+1.  Enter the YouTube video URL and an affiliate link in the respective fields.
+2.  Click **Set Up Automation**.
+3.  View and manage automation in the **Dashboard**.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Deploy the Project
 
-## Deploy on Vercel
+To deploy both the frontend and backend, run the deploy script located in the backend directory:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+./deploy.sh`
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
