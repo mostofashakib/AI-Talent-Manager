@@ -97,7 +97,18 @@ def get_video_comments(video_id, page_token=None):
     return response['items'], response.get('nextPageToken')
 
 def analyze_sales_intent(comment):
-    template = os.getenv("OPEN_AI_SALES_PROMPT_ANALYZE")
+    template = """
+    Analyze the following comment for sales intent. Consider factors like:
+    - Mentions of products or services
+    - Inquiries about pricing
+    - Expressions of interest in purchasing
+    - Requests for more information about a product or service
+
+    Comment: {comment}
+
+    On a scale of 0 to 100, what is the probability that this comment has sales intent?
+    Provide only the numerical score without any explanation.
+    """
     prompt = ChatPromptTemplate.from_template(template)
     chain = prompt | llm
     result = chain.invoke({"comment": comment})
