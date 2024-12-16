@@ -81,9 +81,7 @@ const LandingPage = () => {
             </p>
             <div className="max-w-xl mx-auto space-y-4">
               <div className="bg-white shadow-md rounded-lg p-6">
-                <h2 className="text-2xl font-bold mb-2">
-                  Analyze YouTube Channel
-                </h2>
+                <h2 className="text-2xl font-bold mb-2">Find Brand Deals</h2>
                 <p className="text-gray-600 mb-4">
                   Find potential brand partnerships for your channel
                 </p>
