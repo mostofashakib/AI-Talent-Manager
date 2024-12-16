@@ -37,7 +37,7 @@ def authenticate_services():
 
 youtube = authenticate_services()
 openai_api_key = os.getenv('OPEN_AI_API_KEY')
-llm = ChatOpenAI(temperature=0.7, model="gpt-4-0125-preview", api_key=openai_api_key)
+llm = ChatOpenAI(temperature=0.7, model="gpt-4o-mini", api_key=openai_api_key)
 
 active_automations = {}
 
@@ -97,18 +97,7 @@ def get_video_comments(video_id, page_token=None):
     return response['items'], response.get('nextPageToken')
 
 def analyze_sales_intent(comment):
-    template = """
-    Analyze the following comment for sales intent. Consider factors like:
-    - Mentions of products or services
-    - Inquiries about pricing
-    - Expressions of interest in purchasing
-    - Requests for more information about a product or service
-
-    Comment: {comment}
-
-    On a scale of 0 to 100, what is the probability that this comment has sales intent?
-    Provide only the numerical score without any explanation.
-    """
+    template = os.getenv("OPEN_AI_SALES_PROMPT_ANALYZE")
     prompt = ChatPromptTemplate.from_template(template)
     chain = prompt | llm
     result = chain.invoke({"comment": comment})

@@ -6,6 +6,8 @@ import requests
 
 load_dotenv()
 
+TINY_URL_ENDPOINT = os.getenv("TINY_URL_ENDPOINT")
+
 def shorten_url(long_url):
     try:
         headers = {
@@ -15,7 +17,7 @@ def shorten_url(long_url):
         data = {
             "url": long_url
         }
-        response = requests.post("https://api.tinyurl.com/create", headers=headers, json=data)
+        response = requests.post(TINY_URL_ENDPOINT, headers=headers, json=data)
         if response.status_code == 200:
             return response.json().get("data", {}).get("tiny_url", long_url)
         else:
